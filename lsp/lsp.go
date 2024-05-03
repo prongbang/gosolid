@@ -2,32 +2,48 @@ package lsp
 
 import "fmt"
 
-type FlyingBird interface {
+type Flyer interface {
 	Fly()
 }
 
-type WalkingBird interface {
+type Walker interface {
 	Walk()
 }
 
-type Duck struct{}
+type Bird struct{}
+
+func (b *Bird) Fly() {
+	fmt.Println(" > Flying bird is flying")
+}
+
+func (b *Bird) Walk() {
+	fmt.Println(" > Working bird is walking")
+}
+
+type Duck struct {
+	Bird
+}
 
 func (d *Duck) Fly() {
-	fmt.Println(" > Duck is flying")
+	d.Bird.Fly()
 }
 
 func (d *Duck) Walk() {
-	fmt.Println(" > Duck is walking")
+	fmt.Println(" > Working duck is walking")
 }
 
 type Penguin struct{}
 
 func (p *Penguin) Walk() {
-	fmt.Println(" > Penguin is walking")
+	fmt.Println(" > Working penguin is walking")
 }
 
 func Example() {
 	fmt.Println("Liskov Substitution Principle")
+
+	bird := &Bird{}
+	bird.Fly()
+	bird.Walk()
 
 	duck := &Duck{}
 	duck.Fly()
